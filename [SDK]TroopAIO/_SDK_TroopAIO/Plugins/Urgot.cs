@@ -1,14 +1,14 @@
-﻿    using LeagueSharp;
-    using LeagueSharp.SDK;
-    using LeagueSharp.SDK.Enumerations;
-    using LeagueSharp.SDK.UI;
-    using LeagueSharp.SDK.Utils;
-    using System;
-    using System.Drawing;
-    using System.Linq;
-    using System.Windows.Forms;
+﻿using LeagueSharp;
+using LeagueSharp.SDK;
+using LeagueSharp.SDK.Enumerations;
+using LeagueSharp.SDK.UI;
+using LeagueSharp.SDK.Utils;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
-    using Menu = LeagueSharp.SDK.UI.Menu;
+using Menu = LeagueSharp.SDK.UI.Menu;
 
 
 namespace _SDK_TroopAIO.Plugins
@@ -30,7 +30,7 @@ namespace _SDK_TroopAIO.Plugins
 
         //Summoner Spells
         {
-            Q = new Spell(SpellSlot.Q, 950 ); //Mainly 1000 but it does better with 950)
+            Q = new Spell(SpellSlot.Q, 950); //Mainly 1000 but it does better with 950)
             Q2 = new Spell(SpellSlot.Q, 1200);
             W = new Spell(SpellSlot.W);
             E = new Spell(SpellSlot.E, 850);
@@ -51,6 +51,7 @@ namespace _SDK_TroopAIO.Plugins
                 Key.Add(new MenuKeyBind("Combo", "Combo", System.Windows.Forms.Keys.Space, KeyBindType.Press));
                 Key.Add(new MenuKeyBind("Harass", "Harass", System.Windows.Forms.Keys.C, KeyBindType.Press));
                 Key.Add(new MenuKeyBind("LaneClear", "LaneClear", System.Windows.Forms.Keys.V, KeyBindType.Press));
+                Key.Add(new MenuKeyBind("LastHit", "LastHit", System.Windows.Forms.Keys.X, KeyBindType.Press));
             }
 
 
@@ -77,6 +78,11 @@ namespace _SDK_TroopAIO.Plugins
             {
                 LaneClear.Add(new MenuSlider("laneclearmana", "LaneClear Min Mana", 40));
                 LaneClear.Add(new MenuBool("useqlc", "Use Q to laneclear", true));
+            }
+
+            var LastHit = Menu.Add(new Menu("LastHit", "LastHit"));
+            {
+                LastHit.Add(new MenuBool("qlh", "Use Q to Lasthit", true));
             }
 
             var Misc = Menu.Add(new Menu("Misc", "Misc"));
@@ -138,6 +144,11 @@ namespace _SDK_TroopAIO.Plugins
                 //{
                 //    LaneClear();
                 //}
+
+                if (Menu["Key"]["LastHit"].GetValue<MenuKeyBind>().Active)
+                {
+                    LastHit();
+                }
 
 
             }
@@ -221,6 +232,16 @@ namespace _SDK_TroopAIO.Plugins
 
 
 
+        private void LastHit()
+        {
+            if (GameObjects.EnemyMinions.Count() != 0 && (Menu["LastHit"]["qlh"].GetValue<MenuBool>() && Q.IsReady()))
+            {
+                Obj_AI_Minion minion =
+                    GameObjects.EnemyMinions.FirstOrDefault(m => m.Distance(Me) <= Q.Range && m.Health <= Q.GetDamage(m));
+                Q.Cast(minion);
+            }
+        }
+
 
 
 
@@ -232,12 +253,12 @@ namespace _SDK_TroopAIO.Plugins
 
                 if (Menu["Misc"]["RInterrupt"].GetValue<MenuBool>() && target.IsEnemy && target.IsValidTarget(R.Range) && R.IsReady())
                     if (!target.IsUnderEnemyTurret())
-                {
-                    if (args.DangerLevel >= LeagueSharp.Data.Enumerations.DangerLevel.High || target.IsCastingInterruptableSpell())
                     {
-                        R.Cast();
+                        if (args.DangerLevel >= LeagueSharp.Data.Enumerations.DangerLevel.High || target.IsCastingInterruptableSpell())
+                        {
+                            R.Cast();
+                        }
                     }
-                }
 
             }
             catch (Exception ex)
