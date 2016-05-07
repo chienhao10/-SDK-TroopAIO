@@ -51,7 +51,7 @@ namespace _SDK_TroopAIO.Plugins
                 Key.Add(new MenuKeyBind("Combo", "Combo", System.Windows.Forms.Keys.Space, KeyBindType.Press));
                 Key.Add(new MenuKeyBind("Harass", "Harass", System.Windows.Forms.Keys.C, KeyBindType.Press));
                 Key.Add(new MenuKeyBind("LaneClear", "LaneClear", System.Windows.Forms.Keys.V, KeyBindType.Press));
-                Key.Add(new MenuKeyBind("LastHit", "LastHit", System.Windows.Forms.Keys.X, KeyBindType.Press));
+                //Key.Add(new MenuKeyBind("LastHit", "LastHit", System.Windows.Forms.Keys.X, KeyBindType.Press));
             }
 
 
@@ -78,11 +78,6 @@ namespace _SDK_TroopAIO.Plugins
             {
                 LaneClear.Add(new MenuSlider("laneclearmana", "LaneClear Min Mana", 40));
                 LaneClear.Add(new MenuBool("useqlc", "Use Q to laneclear", true));
-            }
-
-            var LastHit = Menu.Add(new Menu("LastHit", "LastHit"));
-            {
-                LastHit.Add(new MenuBool("qlh", "Use Q to Lasthit", true));
             }
 
             var Misc = Menu.Add(new Menu("Misc", "Misc"));
@@ -144,11 +139,6 @@ namespace _SDK_TroopAIO.Plugins
                 //{
                 //    LaneClear();
                 //}
-
-                if (Menu["Key"]["LastHit"].GetValue<MenuKeyBind>().Active)
-                {
-                    LastHit();
-                }
 
 
             }
@@ -232,15 +222,6 @@ namespace _SDK_TroopAIO.Plugins
 
 
 
-        private void LastHit()
-        {
-            if (GameObjects.EnemyMinions.Count() != 0 && (Menu["LastHit"]["qlh"].GetValue<MenuBool>() && Q.IsReady()))
-            {
-                Obj_AI_Minion minion =
-                    GameObjects.EnemyMinions.FirstOrDefault(m => m.Distance(Me) <= Q.Range && m.Health <= Q.GetDamage(m));
-                Q.Cast(minion);
-            }
-        }
 
 
 
