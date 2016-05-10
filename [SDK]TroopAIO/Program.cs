@@ -37,6 +37,7 @@
                 Sup.Add(new MenuSeparator("Urgot", "Urgot"));
                 Sup.Add(new MenuSeparator("Evelynn", "Evelynn"));
                 Sup.Add(new MenuSeparator("Vladimir", "Vladimir"));
+                Sup.Add(new MenuSeparator("Akali", "Akali"));
             }
 
             switch (Me.ChampionName)
@@ -46,13 +47,18 @@
                     EnableOrbwalker = true;
                     break;
 
-               case "Vladimir":
+                case "Vladimir":
                     new Plugins.Vladimir();
                     EnableOrbwalker = true;
                     break;
 
                 case "Evelynn":
                     new Plugins.Evelynn();
+                    EnableOrbwalker = true;
+                    break;
+
+                case "Akali":
+                    new Plugins.Akali();
                     EnableOrbwalker = true;
                     break;
 

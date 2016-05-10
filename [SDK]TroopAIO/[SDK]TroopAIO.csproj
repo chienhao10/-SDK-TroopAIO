@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="_SDK_TroopAIO\Plugins\Akali.cs" />
     <Compile Include="_SDK_TroopAIO\Plugins\Evelynn.cs" />
     <Compile Include="_SDK_TroopAIO\Plugins\Urgot.cs" />
     <Compile Include="Program.cs" />
