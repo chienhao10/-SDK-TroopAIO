@@ -176,7 +176,7 @@ namespace _SDK_TroopAIO.Plugins
             if (ComboE && E.IsReady() && enemy.IsValidTarget(E.Range))
             {
                 var pred = E.GetPrediction(enemy);
-                if (pred.Hitchance >= HitChance.Medium)
+                if (pred.Hitchance >= HitChance.High)
                     E.Cast(pred.UnitPosition);
             }
 
