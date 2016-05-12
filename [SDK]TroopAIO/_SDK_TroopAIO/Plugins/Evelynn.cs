@@ -181,7 +181,9 @@ private void Game_OnUpdate(EventArgs args)
 
             if (ComboR && R.IsReady() && en.IsValidTarget(R.Range))
             {
-                R.Cast(en);
+                var pred = R.GetPrediction(en);
+                if (pred.Hitchance >= HitChance.High)
+                    R.Cast(pred.UnitPosition);
             }
 
 
