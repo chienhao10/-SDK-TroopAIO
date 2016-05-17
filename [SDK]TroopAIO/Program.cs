@@ -17,6 +17,7 @@
 
         static void Main(string[] args)
         {
+            LeagueSharp.SDK.Bootstrap.Init();
             Events.OnLoad += Events_OnLoad;
         }
 
