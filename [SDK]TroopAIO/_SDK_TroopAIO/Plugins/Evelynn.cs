@@ -68,7 +68,7 @@ namespace _SDK_TroopAIO.Plugins
             {
                 LaneClear.Add(new MenuSlider("lanejungleclearQmana", "LaneClear Min Mana", 40));
                 LaneClear.Add(new MenuBool("useqlc", "Use Q to laneclear + to JungleClear!", true));
-                LaneClear.Add(new MenuSlider("lanejungleclearEmana", "LaneClear Min Mana", 40));
+                LaneClear.Add(new MenuSlider("lanejungleclearEmana", "JungleClear Min Mana", 40));
                 LaneClear.Add(new MenuBool("useelc", "Use E to laneclear + to JungleClear!", true));
             }
 
